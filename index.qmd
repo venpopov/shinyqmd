@@ -1,5 +1,5 @@
 ---
-title: "."
+title: "Shiny app in Quarto test"
 ---
 
 This is a Quarto website.
