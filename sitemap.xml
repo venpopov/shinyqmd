@@ -2,6 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://venpopov.github.io/shinyqmd/index.html</loc>
-    <lastmod>2024-05-18T00:10:15.947Z</lastmod>
+    <lastmod>2024-05-18T05:46:41.484Z</lastmod>
+  </url>
+  <url>
+    <loc>https://venpopov.github.io/shinyqmd/static.html</loc>
+    <lastmod>2024-05-18T06:16:36.336Z</lastmod>
+  </url>
+  <url>
+    <loc>https://venpopov.github.io/shinyqmd/runtime.html</loc>
+    <lastmod>2024-05-18T06:34:54.947Z</lastmod>
   </url>
 </urlset>

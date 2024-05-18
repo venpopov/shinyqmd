@@ -2,8 +2,30 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Shiny app in Quarto test",
+    "title": "Shiny app in Quarto tests",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "This repo tests several ways to embed a Shiny app in a Quarto document."
+  },
+  {
+    "objectID": "static.html",
+    "href": "static.html",
+    "title": "Static (regular)",
+    "section": "",
+    "text": "This does not work.\n\nlibrary(shiny)\nshinyApp(\n  ui = fluidPage(\n    titlePanel(\"Hello Shiny!\"),\n    sidebarLayout(\n      sidebarPanel(\n        sliderInput(\"obs\", \"Number of observations:\", min = 1, max = 1000, value = 500)\n      ),\n      mainPanel(\n        plotOutput(\"distPlot\")\n      )\n    )\n  ),\n  server = function(input, output) {\n    output$distPlot &lt;- renderPlot({\n      hist(rnorm(input$obs))\n    })\n  }\n)\n\nShiny applications not supported in static R Markdown documents",
+    "crumbs": [
+      "Home",
+      "Static (regular)"
+    ]
+  },
+  {
+    "objectID": "runtime.html",
+    "href": "runtime.html",
+    "title": "Runtime shiny",
+    "section": "",
+    "text": "As described here: https://shiny.posit.co/r/articles/share/function/\nAlso does not work\n\nrequire(shiny)\n\nLoading required package: shiny\n\nshinyApp(\n  ui = fluidPage(\n    titlePanel(\"Hello Shiny!\"),\n    sidebarLayout(\n      sidebarPanel(\n        sliderInput(\"obs\", \"Number of observations:\", min = 1, max = 1000, value = 500)\n      ),\n      mainPanel(\n        plotOutput(\"distPlot\")\n      )\n    )\n  ),\n  server = function(input, output) {\n    output$distPlot &lt;- renderPlot({\n      hist(rnorm(input$obs))\n    })\n  }\n)",
+    "crumbs": [
+      "Home",
+      "Runtime shiny"
+    ]
   }
 ]
