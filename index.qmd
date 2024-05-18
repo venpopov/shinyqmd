@@ -1,7 +1,10 @@
 ---
-title: "Shiny app in Quarto test"
+title: "Shiny app in Quarto tests"
 ---
 
-This is a Quarto website.
+This repo tests several ways to embed a Shiny app in a Quarto document.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+
+
+
+
