@@ -4,7 +4,11 @@ title: "Shiny app in Quarto tests"
 
 This repo tests several ways to embed a Shiny app in a Quarto document.
 
+## Local use via github link
 
+This works:
 
-
+```r
+shiny::runGitHub("shinyqmd", "venpopov", subdir = "app1")
+```
 
