@@ -1,0 +1,41 @@
+---
+title: "Hello shiny"
+format: dashboard
+server: shiny
+---
+
+As described here: https://quarto.org/docs/dashboards/interactivity/shiny-r.html
+
+<!-- Run this with `quarto serve attempt3.qmd` -->
+
+# {.sidebar}
+
+```{r}
+sliderInput("obs", "Number of observations:", min = 1, max = 1000, value = 500)
+```
+
+# Plot
+
+```{r}
+plotOutput("distPlot1")
+```
+
+# Plot on a new page
+<!-- level 1 headings create new tabs -->
+
+```{r}
+plotOutput("distPlot2")
+```
+
+
+```{r}
+#| context: server
+# Define server logic required to draw a histogram
+output$distPlot1 <- renderPlot({
+  hist(rnorm(input$obs))
+})
+
+output$distPlot2 <- renderPlot({
+  hist(rnorm(input$obs)^2)
+})
+```

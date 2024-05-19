@@ -12,3 +12,12 @@ This works:
 shiny::runGitHub("shinyqmd", "venpopov", subdir = "app1")
 ```
 
+## A separate shiny dashboard run locally
+
+run this in the terminal:
+
+```bash
+quarto serve attempt3.qmd
+```
+
+it works locally, but it's not part of the project (had to exclude it from the `_quarto.yml` file)

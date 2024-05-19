@@ -1,5 +1,8 @@
 project:
   type: website
+  render: 
+    - "*.qmd"
+    - "!attempt3.qmd"
 
 website:
   title: ""
