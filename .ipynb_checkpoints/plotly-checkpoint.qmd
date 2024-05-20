@@ -1,0 +1,39 @@
+---
+title: "Plotly"
+format: html
+---
+
+This option is not via shiny, but via the `plotly` R package. It does not perform online computations. I have to precompute the data for all sliders. I also cannot show new randomly generated data on the fly.
+
+The easiest option is to create the plot in ggplot and specify the `frame` aesthetic. This will create a slider that allows you to move through the frames.
+
+TODO: Can I add more than one slider?
+
+Let's create a visualization of the central limit theorem. We will generate 1000 random samples of size `n` from a uniform distribution and plot the mean of each sample. As `n` increases, the distribution of the sample means will approach a normal distribution.
+
+```{r}
+library(ggplot2)
+library(plotly)
+
+n <- 1:1000
+means <- sapply(n, function(n) mean(runif(n)))
+
+df <- data.frame(n = n, means = means)
+
+
+p <- ggplot(df, aes(x = means)) +
+  geom_histogram(bins = 30) +
+  labs(
+    title = "Central Limit Theorem",
+    x = "Mean",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+
+
+
+
+p <- ggplotly(p, dynamicTicks = TRUE)
+
+p
+```

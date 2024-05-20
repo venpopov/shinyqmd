@@ -1,8 +1,8 @@
 ---
-title: "Shiny app in Quarto tests"
+title: "Interactive plots in a Quarto website"
 ---
 
-This repo tests several ways to embed a Shiny app in a Quarto document.
+This repo tests several ways to embed a Shiny app in a Quarto document. In the sidebar on the left you can see the different attempts. Of them, only `shinylive` works on a static quarto website and `plotly`. `iframe` works, but the app still needs to be deployed on a server. The other two require a Shiny server to run. There are also local options:
 
 ## Local use via github link
 
@@ -17,7 +17,19 @@ shiny::runGitHub("shinyqmd", "venpopov", subdir = "app1")
 run this in the terminal:
 
 ```bash
-quarto serve attempt3.qmd
+quarto serve attempt3.qmd --browser
 ```
 
 it works locally, but it's not part of the project (had to exclude it from the `_quarto.yml` file)
+
+can deploy it to shinyapps.io with:
+
+```r
+library(quarto)
+quarto_publish_app("attempt3.qmd", server = "shinyapps.io", render = "server", appFiles = c("attempt3.qmd", "attempt3.html", list.files("attempt3_files", recursive = TRUE, full.names = TRUE)))
+```
+
+available here: https://venpopov.shinyapps.io/attempt3/
+
+(I guess I could have also stored it in a folder "shinyapps", exclude the folder from the `_quarto.yml` file and then deploy it from the folder without having to list `appFiles`)
+

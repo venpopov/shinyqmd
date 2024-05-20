@@ -1,0 +1,11 @@
+---
+title: "Embed via iframe"
+format: html
+---
+
+This method requires that the shiny app is deployed on a server. The app is embedded in an iframe, which is a separate HTML document that is embedded within the current document.
+
+```{=html}
+ <iframe id="example1" src="https://gallery.shinyapps.io/goog-trend-index/" style="border: none; width: 100%; height: 720px" frameborder="0"></iframe>
+```
+
