@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://venpopov.github.io/shinyqmd/index.html</loc>
-    <lastmod>2024-05-18T05:46:41.484Z</lastmod>
-  </url>
-  <url>
-    <loc>https://venpopov.github.io/shinyqmd/static.html</loc>
-    <lastmod>2024-05-18T06:16:36.336Z</lastmod>
+    <loc>https://venpopov.github.io/shinyqmd/plotly.html</loc>
+    <lastmod>2024-05-20T05:14:54.522Z</lastmod>
   </url>
   <url>
     <loc>https://venpopov.github.io/shinyqmd/runtime.html</loc>
     <lastmod>2024-05-18T06:34:54.947Z</lastmod>
+  </url>
+  <url>
+    <loc>https://venpopov.github.io/shinyqmd/shinylive.html</loc>
+    <lastmod>2024-05-20T05:40:43.859Z</lastmod>
+  </url>
+  <url>
+    <loc>https://venpopov.github.io/shinyqmd/index.html</loc>
+    <lastmod>2024-05-20T05:58:47.450Z</lastmod>
+  </url>
+  <url>
+    <loc>https://venpopov.github.io/shinyqmd/iframe.html</loc>
+    <lastmod>2024-05-20T05:57:04.390Z</lastmod>
+  </url>
+  <url>
+    <loc>https://venpopov.github.io/shinyqmd/static.html</loc>
+    <lastmod>2024-05-18T06:16:36.336Z</lastmod>
   </url>
 </urlset>

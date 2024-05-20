@@ -1,20 +1,13 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Shiny app in Quarto tests",
+    "objectID": "plotly.html",
+    "href": "plotly.html",
+    "title": "Plotly",
     "section": "",
-    "text": "This repo tests several ways to embed a Shiny app in a Quarto document."
-  },
-  {
-    "objectID": "static.html",
-    "href": "static.html",
-    "title": "Static (regular)",
-    "section": "",
-    "text": "This does not work.\n\nlibrary(shiny)\nshinyApp(\n  ui = fluidPage(\n    titlePanel(\"Hello Shiny!\"),\n    sidebarLayout(\n      sidebarPanel(\n        sliderInput(\"obs\", \"Number of observations:\", min = 1, max = 1000, value = 500)\n      ),\n      mainPanel(\n        plotOutput(\"distPlot\")\n      )\n    )\n  ),\n  server = function(input, output) {\n    output$distPlot &lt;- renderPlot({\n      hist(rnorm(input$obs))\n    })\n  }\n)\n\nShiny applications not supported in static R Markdown documents",
+    "text": "This option is not via shiny, but via the plotly R package. It does not perform online computations. I have to precompute the data for all sliders. I also cannot show new randomly generated data on the fly.\nThe easiest option is to create the plot in ggplot and specify the frame aesthetic. This will create a slider that allows you to move through the frames.\nTODO: Can I add more than one slider?\nLet’s create a visualization of the central limit theorem. We will generate 1000 random samples of size n from a uniform distribution and plot the mean of each sample. As n increases, the distribution of the sample means will approach a normal distribution.\n\nlibrary(ggplot2)\nlibrary(plotly)\n\nn &lt;- 1:100\nmeans &lt;- sapply(n, function(n) replicate(1000, mean(rnorm(n, mean = 100, sd = 15))))\ndf &lt;- data.frame(n = rep(n, each = nrow(means)), means = as.vector(means))\n\np &lt;- ggplot(df, aes(x = means, frame = n)) +\n  geom_density()\n\ntry(ggplotly(p))\n\n\n\n\n\nthe above does not work with histograms, because ggplotly does not support the frame aesthetic for histograms. We can implement the same thing using plot_ly directly.\n\np &lt;- plot_ly(df, x = ~means, frame = ~n, type = \"histogram\")\np\n\n\n\n\n\nhow about with the manipulate package?\n\nlibrary(manipulate)\ntry(manipulate(plot(x, A*sin(k*x)), A = slider(1,3), k = slider(1,10)))\n\nError in manipulate(plot(x, A * sin(k * x)), A = slider(1, 3), k = slider(1,  : \n  The manipulate package must be run from within RStudio",
     "crumbs": [
       "Home",
-      "Static (regular)"
+      "Plotly"
     ]
   },
   {
@@ -26,6 +19,60 @@
     "crumbs": [
       "Home",
       "Runtime shiny"
+    ]
+  },
+  {
+    "objectID": "shinylive.html",
+    "href": "shinylive.html",
+    "title": "Shinylive - run in browser",
+    "section": "",
+    "text": "The final attempt is to use a shinylive app, which can be run inside the user’s browser and it does not require hosting the app on a server.\n#| standalone: true\n#| viewerHeight: 700\n\nlibrary(shiny)\nshinyApp(\n  ui = fluidPage(\n    titlePanel(\"Hello Shiny!\"),\n    sidebarLayout(\n      sidebarPanel(\n        sliderInput(\"obs\", \"Number of observations:\", min = 1, max = 1000, value = 500)\n      ),\n      mainPanel(\n        plotOutput(\"distPlot\")\n      )\n    )\n  ),\n  server = function(input, output) {\n    output$distPlot &lt;- renderPlot({\n      hist(rnorm(input$obs))\n    })\n  }\n)",
+    "crumbs": [
+      "Home",
+      "Shinylive - run in browser"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Interactive plots in a Quarto website",
+    "section": "",
+    "text": "This repo tests several ways to embed a Shiny app in a Quarto document. In the sidebar on the left you can see the different attempts. Of them, only shinylive works on a static quarto website and plotly. iframe works, but the app still needs to be deployed on a server. The other two require a Shiny server to run. There are also local options:"
+  },
+  {
+    "objectID": "index.html#local-use-via-github-link",
+    "href": "index.html#local-use-via-github-link",
+    "title": "Interactive plots in a Quarto website",
+    "section": "Local use via github link",
+    "text": "Local use via github link\nThis works:\nshiny::runGitHub(\"shinyqmd\", \"venpopov\", subdir = \"app1\")"
+  },
+  {
+    "objectID": "index.html#a-separate-shiny-dashboard-run-locally",
+    "href": "index.html#a-separate-shiny-dashboard-run-locally",
+    "title": "Interactive plots in a Quarto website",
+    "section": "A separate shiny dashboard run locally",
+    "text": "A separate shiny dashboard run locally\nrun this in the terminal:\nquarto serve attempt3.qmd --browser\nit works locally, but it’s not part of the project (had to exclude it from the _quarto.yml file)\ncan deploy it to shinyapps.io with:\nlibrary(quarto)\nquarto_publish_app(\"attempt3.qmd\", server = \"shinyapps.io\", render = \"server\", appFiles = c(\"attempt3.qmd\", \"attempt3.html\", list.files(\"attempt3_files\", recursive = TRUE, full.names = TRUE)))\navailable here: https://venpopov.shinyapps.io/attempt3/\n(I guess I could have also stored it in a folder “shinyapps”, exclude the folder from the _quarto.yml file and then deploy it from the folder without having to list appFiles)"
+  },
+  {
+    "objectID": "iframe.html",
+    "href": "iframe.html",
+    "title": "Embed via iframe",
+    "section": "",
+    "text": "This method requires that the shiny app is deployed on a server. The app is embedded in an iframe, which is a separate HTML document that is embedded within the current document.",
+    "crumbs": [
+      "Home",
+      "Embed via iframe"
+    ]
+  },
+  {
+    "objectID": "static.html",
+    "href": "static.html",
+    "title": "Static (regular)",
+    "section": "",
+    "text": "This does not work.\n\nlibrary(shiny)\nshinyApp(\n  ui = fluidPage(\n    titlePanel(\"Hello Shiny!\"),\n    sidebarLayout(\n      sidebarPanel(\n        sliderInput(\"obs\", \"Number of observations:\", min = 1, max = 1000, value = 500)\n      ),\n      mainPanel(\n        plotOutput(\"distPlot\")\n      )\n    )\n  ),\n  server = function(input, output) {\n    output$distPlot &lt;- renderPlot({\n      hist(rnorm(input$obs))\n    })\n  }\n)\n\nShiny applications not supported in static R Markdown documents",
+    "crumbs": [
+      "Home",
+      "Static (regular)"
     ]
   }
 ]
