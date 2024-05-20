@@ -1,0 +1,91 @@
+---
+title: "Shinylive with package not on CRAN"
+format: html
+filters:
+  - shinylive
+---
+
+## Custom function
+
+First, let's try to use a custom function and see if that works. Cool, it does!
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 700
+
+library(shiny)
+
+rmine <- function(n) {
+  rnorm(n)
+}
+
+# Define your Shiny UI here
+ui <- fluidPage(
+  sliderInput("obs", "Number of observations:", min = 1, max = 1000, value = 400),
+  plotOutput("distPlot")
+)
+
+# Define your Shiny server logic here
+server <- function(input, output, session) {
+  output$distPlot <- renderPlot({
+    hist(rmine(input$obs))
+  })
+}
+
+# Create and launch the Shiny app
+shinyApp(ui, server)
+```
+
+
+## With a package from CRAN
+
+Now let's try to use a package that is on CRAN. This doesn't work with `brms` apparently.
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 700
+
+library(brms)
+
+# Define your Shiny UI here
+ui <- fluidPage(
+  sliderInput("obs", "Number of observations:", min = 1, max = 100, value = 50),
+  plotOutput("distPlot")
+)
+
+# Define your Shiny server logic here
+server <- function(input, output, session) {
+  output$distPlot <- renderPlot({
+    hist(brms::rvon_mises(input$obs, mu = 0, kappa = 5))
+  })
+}
+
+# Create and launch the Shiny app
+shinyApp(ui, server)
+```
+
+how about ggplot?
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 700
+
+# Define your Shiny UI here
+ui <- fluidPage(
+  sliderInput("obs", "Number of observations:", min = 1, max = 100, value = 50),
+  plotOutput("distPlot")
+)
+
+# Define your Shiny server logic here
+server <- function(input, output, session) {
+  library(ggplot2)
+  output$distPlot <- renderPlot({
+    x <- rnorm(input$obs)
+    y <- x + rnorm(input$obs)
+    ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) + geom_point()
+  })
+}
+
+# Create and launch the Shiny app
+shinyApp(ui, server)
+```
